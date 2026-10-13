@@ -1,0 +1,70 @@
+
+BasedOnStyle: LLVM
+
+IndentWidth: 4
+ContinuationIndentWidth: 4
+UseTab: Never
+ColumnLimit: 120
+BreakBeforeBraces: Attach
+
+PointerAlignment: Left
+ReferenceAlignment: Left
+DerivePointerAlignment: false
+
+NamespaceIndentation: None
+IndentAccessModifiers: false
+AccessModifierOffset: -4
+IndentCaseLabels: true
+IndentPPDirectives: AfterHash
+PPIndentWidth: 2
+
+AllowShortFunctionsOnASingleLine: None
+AllowShortLambdasOnASingleLine: Inline
+AllowShortBlocksOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+
+BinPackParameters: OnePerLine
+BinPackArguments: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowAllArgumentsOnNextLine: false
+AlignAfterOpenBracket: false
+BreakAfterOpenBracketFunction: true
+BreakBeforeCloseBracketFunction: false
+
+PackConstructorInitializers: NextLineOnly
+BreakConstructorInitializers: BeforeColon
+BreakInheritanceList: BeforeColon
+BreakTemplateDeclarations: Yes
+BreakBeforeBinaryOperators: None
+Cpp11BracedListStyle: FunctionCall
+RequiresClausePosition: OwnLine
+IndentRequiresClause: false
+
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AlignConsecutiveMacros: Consecutive
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 0
+
+IncludeBlocks: Regroup
+SortIncludes:
+  Enabled: true
+IncludeCategories:
+  - Regex: '^<'
+    Priority: 1
+  - Regex: '^"'
+    Priority: 2
+
+FixNamespaceComments: true
+SeparateDefinitionBlocks: Always
+EmptyLineBeforeAccessModifier: Always
+EmptyLineAfterAccessModifier: Never
+SpaceBeforeParens: ControlStatements
+SpaceInEmptyBraces: Never
+BreakStringLiterals: true
+ReflowComments: IndentOnly
+MaxEmptyLinesToKeep: 1
+SortUsingDeclarations: Never
