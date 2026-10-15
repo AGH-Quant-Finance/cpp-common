@@ -1,0 +1,55 @@
+* text=auto eol=lf
+
+*.c     diff=cpp
+*.cc    diff=cpp
+*.cpp   diff=cpp
+*.cxx   diff=cpp
+*.h     diff=cpp
+*.hh    diff=cpp
+*.hpp   diff=cpp
+*.hxx   diff=cpp
+*.ipp   diff=cpp
+*.tpp   diff=cpp
+*.inl   diff=cpp
+*.ixx   diff=cpp
+*.cppm  diff=cpp
+
+*.md       diff=markdown
+*.markdown diff=markdown
+
+*.bat text eol=lf
+*.cmd text eol=lf
+
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.bmp  binary
+*.webp binary
+*.ico  binary
+*.tif  binary
+*.tiff binary
+
+*.pdf  binary
+*.docx binary
+*.xlsx binary
+*.pptx binary
+*.zip  binary
+*.7z   binary
+*.tar  binary
+*.gz   binary
+*.bz2  binary
+*.xz   binary
+*.zst  binary
+
+*.a     binary
+*.lib   binary
+*.o     binary
+*.obj   binary
+*.so    binary
+*.so.*  binary
+*.dylib binary
+*.dll   binary
+*.exe   binary
+*.pdb   binary
+*.wasm  binary

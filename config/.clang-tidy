@@ -1,0 +1,268 @@
+Checks: >-
+  -*,
+  bugprone-assert-side-effect,
+  bugprone-dangling-handle,
+  bugprone-implicit-widening-of-multiplication-result,
+  bugprone-inaccurate-erase,
+  bugprone-incorrect-roundings,
+  bugprone-infinite-loop,
+  bugprone-macro-parentheses,
+  bugprone-macro-repeated-side-effects,
+  bugprone-move-forwarding-reference,
+  bugprone-narrowing-conversions,
+  bugprone-raw-memory-call-on-non-trivial-type,
+  bugprone-shared-ptr-array-mismatch,
+  bugprone-sizeof-container,
+  bugprone-sizeof-expression,
+  bugprone-spuriously-wake-up-functions,
+  bugprone-stringview-nullptr,
+  bugprone-suspicious-memory-comparison,
+  bugprone-suspicious-memset-usage,
+  bugprone-suspicious-stringview-data-usage,
+  bugprone-swapped-arguments,
+  bugprone-unchecked-optional-access,
+  bugprone-unique-ptr-array-mismatch,
+  bugprone-unused-raii,
+  bugprone-use-after-move,
+  clang-analyzer-core.DivideZero,
+  clang-analyzer-core.NullDereference,
+  clang-analyzer-core.uninitialized.*,
+  clang-analyzer-cplusplus.NewDelete,
+  clang-analyzer-cplusplus.NewDeleteLeaks,
+  clang-analyzer-unix.Malloc,
+  cppcoreguidelines-init-variables,
+  cppcoreguidelines-interfaces-global-init,
+  cppcoreguidelines-missing-std-forward,
+  cppcoreguidelines-no-suspend-with-lock,
+  cppcoreguidelines-pro-type-const-cast,
+  cppcoreguidelines-pro-type-cstyle-cast,
+  cppcoreguidelines-pro-type-member-init,
+  cppcoreguidelines-slicing,
+  cppcoreguidelines-special-member-functions,
+  cppcoreguidelines-virtual-class-destructor,
+  google-explicit-constructor,
+  misc-redundant-expression,
+  misc-throw-by-value-catch-by-reference,
+  modernize-make-unique,
+  modernize-use-auto,
+  modernize-use-constraints,
+  modernize-use-default-member-init,
+  modernize-use-designated-initializers,
+  modernize-use-emplace,
+  modernize-use-equals-default,
+  modernize-use-equals-delete,
+  modernize-use-integer-sign-comparison,
+  modernize-use-nodiscard,
+  modernize-use-nullptr,
+  modernize-use-override,
+  modernize-use-scoped-lock,
+  modernize-use-starts-ends-with,
+  modernize-use-std-numbers,
+  modernize-use-transparent-functors,
+  modernize-use-using,
+  performance-avoid-endl,
+  performance-faster-string-find,
+  performance-for-range-copy,
+  performance-implicit-conversion-in-loop,
+  performance-inefficient-algorithm,
+  performance-inefficient-string-concatenation,
+  performance-inefficient-vector-operation,
+  performance-move-const-arg,
+  performance-move-constructor-init,
+  performance-noexcept-move-constructor,
+  performance-noexcept-swap,
+  performance-type-promotion-in-math-fn,
+  performance-unnecessary-copy-initialization,
+  readability-braces-around-statements,
+  readability-const-return-type,
+  readability-container-size-empty,
+  readability-duplicate-include,
+  readability-else-after-return,
+  readability-identifier-naming,
+  readability-implicit-bool-conversion,
+  readability-inconsistent-declaration-parameter-name,
+  readability-isolate-declaration,
+  readability-make-member-function-const,
+  readability-named-parameter,
+  readability-qualified-auto,
+  readability-redundant-smartptr-get,
+  readability-redundant-string-cstr,
+  readability-simplify-boolean-expr
+WarningsAsErrors: '*'
+HeaderFilterRegex: '.*'
+ExcludeHeaderFilterRegex: '(^|/)(third_party|third-party|external|vendor|generated|_deps|build)(/|$)'
+SystemHeaders: false
+FormatStyle: file
+CheckOptions:
+  - key: bugprone-narrowing-conversions.PedanticMode
+    value: 'false'
+  - key: bugprone-narrowing-conversions.WarnOnEquivalentBitWidth
+    value: 'true'
+  - key: bugprone-narrowing-conversions.WarnOnFloatingPointNarrowingConversion
+    value: 'true'
+  - key: bugprone-narrowing-conversions.WarnOnIntegerNarrowingConversion
+    value: 'true'
+  - key: bugprone-narrowing-conversions.WarnOnIntegerToFloatingPointNarrowingConversion
+    value: 'true'
+  - key: bugprone-narrowing-conversions.WarnWithinTemplateInstantiation
+    value: 'false'
+  - key: bugprone-unchecked-optional-access.IgnoreValueCalls
+    value: 'true'
+  - key: cppcoreguidelines-pro-type-const-cast.StrictMode
+    value: 'false'
+  - key: cppcoreguidelines-pro-type-member-init.IgnoreArrays
+    value: 'true'
+  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
+    value: 'true'
+  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctionsWhenCopyIsDeleted
+    value: 'true'
+  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+    value: 'true'
+  - key: modernize-use-designated-initializers.IgnoreSingleElementAggregates
+    value: 'true'
+  - key: modernize-use-scoped-lock.WarnOnSingleLocks
+    value: 'false'
+  - key: modernize-use-scoped-lock.WarnOnUsingAndTypedef
+    value: 'false'
+  - key: modernize-use-transparent-functors.SafeMode
+    value: 'true'
+  - key: performance-for-range-copy.WarnOnAllAutoCopies
+    value: 'false'
+  - key: performance-inefficient-string-concatenation.StrictMode
+    value: 'false'
+  - key: performance-move-const-arg.CheckMoveToConstRef
+    value: 'true'
+  - key: performance-move-const-arg.CheckTriviallyCopyableMove
+    value: 'true'
+  - key: readability-braces-around-statements.ShortStatementLines
+    value: '0'
+  - key: readability-else-after-return.WarnOnConditionVariables
+    value: 'false'
+  - key: readability-else-after-return.WarnOnUnfixable
+    value: 'false'
+  - key: readability-identifier-naming.AbstractClassCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ClassCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ClassConstantCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ClassConstexprCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.ClassMemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ClassMethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ConceptCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ConstantCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ConstantMemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ConstantParameterCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ConstantPointerParameterCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ConstexprFunctionCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ConstexprMethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ConstexprVariableCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.EnumCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.EnumConstantCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.FunctionCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.GetConfigPerFile
+    value: 'true'
+  - key: readability-identifier-naming.GlobalConstantCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.GlobalConstantPointerCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.GlobalConstexprVariableCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.GlobalFunctionCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.GlobalPointerCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.GlobalVariableCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.IgnoreMainLikeFunctions
+    value: 'true'
+  - key: readability-identifier-naming.InlineNamespaceCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.LocalConstantCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.LocalConstantPointerCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.LocalConstexprVariableCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.LocalPointerCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.LocalVariableCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.MacroDefinitionCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.MemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.MethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.NamespaceCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ParameterCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.PointerParameterCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.PrivateMemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.PrivateMethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ProtectedMemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.ProtectedMethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.PublicMemberCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.PublicMethodCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ScopedEnumConstantCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.StaticConstantCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.StaticConstexprVariableCase
+    value: 'UPPER_CASE'
+  - key: readability-identifier-naming.StaticVariableCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.StructCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.TemplateParameterCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.TemplateTemplateParameterCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.TypeAliasCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.TypeTemplateParameterCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.TypedefCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.UnionCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.ValueTemplateParameterCase
+    value: 'CamelCase'
+  - key: readability-identifier-naming.VariableCase
+    value: 'camelBack'
+  - key: readability-identifier-naming.VirtualMethodCase
+    value: 'CamelCase'
+  - key: readability-implicit-bool-conversion.AllowIntegerConditions
+    value: 'true'
+  - key: readability-implicit-bool-conversion.AllowPointerConditions
+    value: 'true'
+  - key: readability-inconsistent-declaration-parameter-name.Strict
+    value: 'false'
+  - key: readability-qualified-auto.AddConstToQualified
+    value: 'false'
+  - key: readability-simplify-boolean-expr.SimplifyDeMorgan
+    value: 'true'
+  - key: readability-simplify-boolean-expr.SimplifyDeMorganRelaxed
+    value: 'false'

@@ -1,0 +1,135 @@
+
+name: SemVer Tag
+
+on:
+  workflow_call:
+    outputs:
+      version:
+        description: Release version without the v prefix
+        value: ${{ jobs.release.outputs.version }}
+      tag:
+        description: Published Git tag
+        value: ${{ jobs.release.outputs.tag }}
+      major:
+        description: Major version component
+        value: ${{ jobs.release.outputs.major }}
+      minor:
+        description: Minor version component
+        value: ${{ jobs.release.outputs.minor }}
+      patch:
+        description: Patch version component
+        value: ${{ jobs.release.outputs.patch }}
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Calculate SemVer and publish tag
+    runs-on: ubuntu-latest
+    concurrency:
+      group: semver-${{ github.repository }}
+      cancel-in-progress: false
+
+    outputs:
+      version: ${{ steps.semver.outputs.version }}
+      tag: ${{ steps.semver.outputs.tag }}
+      major: ${{ steps.semver.outputs.major }}
+      minor: ${{ steps.semver.outputs.minor }}
+      patch: ${{ steps.semver.outputs.patch }}
+
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Determine SemVer
+        id: semver
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "$GITHUB_REF" != "refs/heads/main" ]]; then
+            echo "Releases are allowed only on main (current ref: $GITHUB_REF)" >&2
+            exit 1
+          fi
+
+          git fetch origin --tags --force
+
+          find_latest_tag() {
+            local current
+            while IFS= read -r current; do
+              if [[ "$current" =~ ^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]]; then
+                printf '%s\n' "$current"
+                return 0
+              fi
+            done
+            return 1
+          }
+
+          existing_tag="$(git tag --points-at "$GITHUB_SHA" --list 'v*' --sort=-v:refname | find_latest_tag || true)"
+
+          if [[ -n "$existing_tag" ]]; then
+            tag="$existing_tag"
+            version="${tag#v}"
+            echo "Commit already tagged: $tag"
+          else
+            subject="$(git log -1 --format=%s "$GITHUB_SHA")"
+            echo "Commit subject: $subject"
+
+            if [[ "$subject" =~ ^\[(MAJOR|MINOR|PATCH)\]([[:space:]]|$) ]]; then
+              bump="${BASH_REMATCH[1]}"
+            else
+              echo "Commit subject must begin with [MAJOR], [MINOR] or [PATCH]" >&2
+              exit 1
+            fi
+
+            latest_tag="$(git tag --merged "$GITHUB_SHA" --list 'v*' --sort=-v:refname | find_latest_tag || true)"
+            current_version="${latest_tag#v}"
+            current_version="${current_version:-0.0.0}"
+            IFS='.' read -r major minor patch <<< "$current_version"
+
+            case "$bump" in
+              MAJOR) major=$((major + 1)); minor=0; patch=0 ;;
+              MINOR) minor=$((minor + 1)); patch=0 ;;
+              PATCH) patch=$((patch + 1)) ;;
+            esac
+
+            version="${major}.${minor}.${patch}"
+            tag="v${version}"
+            echo "Previous: $current_version; bump: $bump; release: $tag"
+          fi
+
+          IFS='.' read -r major minor patch <<< "$version"
+          {
+            echo "version=$version"
+            echo "tag=$tag"
+            echo "major=$major"
+            echo "minor=$minor"
+            echo "patch=$patch"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Publish Git tag
+        env:
+          TAG: ${{ steps.semver.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git show-ref --tags --verify --quiet "refs/tags/$TAG"; then
+            target="$(git rev-list -n 1 "$TAG")"
+            if [[ "$target" == "$GITHUB_SHA" ]]; then
+              echo "$TAG already points to this commit"
+              exit 0
+            fi
+            echo "Refusing to overwrite $TAG (points to $target)" >&2
+            exit 1
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git tag -a "$TAG" "$GITHUB_SHA" -m "Release $TAG"
+          git push origin "refs/tags/$TAG:refs/tags/$TAG"

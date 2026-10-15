@@ -1,0 +1,45 @@
+CompileFlags:
+  CompilationDatabase: Ancestors
+  BuiltinHeaders: QueryDriver
+
+Index:
+  Background: Build
+  StandardLibrary: true
+
+Diagnostics:
+  ClangTidy:
+    FastCheckFilter: None
+  UnusedIncludes: Strict
+  MissingIncludes: Strict
+  Includes:
+    AnalyzeAngledIncludes: false
+
+Completion:
+  AllScopes: "Yes"
+  ArgumentLists: Delimiters
+  HeaderInsertion: IWYU
+  CodePatterns: All
+  MacroFilter: FuzzyMatch
+
+InlayHints:
+  Enabled: true
+  ParameterNames: false
+  DeducedTypes: true
+  Designators: true
+  BlockEnd: false
+  DefaultArguments: false
+  TypeNameLimit: 32
+
+Hover:
+  ShowAKA: true
+  MacroContentsLimit: 2048
+
+Documentation:
+  CommentFormat: Doxygen
+
+---
+If:
+  PathMatch: '(^|.*/)(generated|third_party|third-party|external|vendor|_deps|build|cmake-build-[^/]+)(/.*)?$'
+Diagnostics:
+  ClangTidy:
+    Remove: '*'
