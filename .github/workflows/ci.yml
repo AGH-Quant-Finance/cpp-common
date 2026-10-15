@@ -9,5 +9,5 @@ permissions:
 
 jobs:
   semver:
-    uses: AGH-Quant-Finance/cpp-standards/.github/workflows/semver.yml@v1
+    uses: AGH-Quant-Finance/cpp-common/.github/workflows/semver.yml@v1
 
