@@ -1,0 +1,13 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  semver:
+    uses: AGH-Quant-Finance/cpp-standards/.github/workflows/semver.yml@v1
+
