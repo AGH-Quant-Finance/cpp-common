@@ -21,6 +21,7 @@ for config in .clang-format .clang-tidy .clangd .editorconfig .gitattributes; do
 done
 
 # Ask the actual consumers to reject unsupported formatting options/checks.
+# The pinned CI image provides these versioned binaries, without unversioned aliases.
 clang-format-22 --style="file:$fixture/.clang-format" --dump-config > /dev/null
 clang-tidy-22 --config-file="$fixture/.clang-tidy" --verify-config
 printf 'Shared configurations and CMake integration validated.\n'
